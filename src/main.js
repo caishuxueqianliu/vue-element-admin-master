@@ -4,7 +4,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 Vue.use(ElementUI)
-
+import './assets/css/global.css'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
