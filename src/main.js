@@ -8,8 +8,9 @@ import './assets/css/global.css'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import Vueresource from 'vue-resource'
-Vue.use(Vueresource)
+import axios from 'axios'
+Vue.prototype.$http=axios
+axios.defaults.baseURL=''
 
 import VueRouter from 'vue-router'
 import router from './router.js'
