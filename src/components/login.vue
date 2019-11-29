@@ -47,7 +47,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '123456'
       },
       
       loginRules: {
@@ -69,7 +69,7 @@ export default {
    
   },
   created() {
-  
+
   },
   mounted() {
   
@@ -80,13 +80,25 @@ export default {
   methods: {
    login(){
 
- this.$refs.loginFormRef.validate((boolean,valid)=>{
-  console.log(boolean);
+ this.$refs.loginFormRef.validate(async valid=>{
+  console.log(valid);
+   if(!valid) return;
+   const {data:res}=await this.$http.post('login',this.loginForm);
+   if(res.meta.status!==200)return this.$message.error('登陆失败')
+   this.$message.success('登陆成功');
+ // console.log(res);
+//将token存储到本地session存储中
+ window.sessionStorage.setItem("token",res.data.token);
+//编程式导航
+ this.$router.push("/home");
+
+
  });
    },
   reset()
 {
  this.$refs.loginFormRef.resetFields();
+
 } 
 
 
