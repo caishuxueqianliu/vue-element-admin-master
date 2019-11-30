@@ -1,7 +1,10 @@
 <template>
 
   <div >
-welcome !
+
+  
+  123
+
    </div>
 
 </template>
@@ -10,7 +13,7 @@ welcome !
 
 
 export default {
-  name: 'Login',
+
 
   data() {
   

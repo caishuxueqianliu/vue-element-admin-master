@@ -53,7 +53,7 @@ export default {
       loginRules: {
         username: [
         { required: true, trigger: 'blur', message: '请输入用户名' } ,
-        { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' },
+        { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
         ],
         password: [{ validator: validatePass, trigger: 'blur' }]
       }

@@ -5,8 +5,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
 
 import{Message} from 'element-ui'
+import{Tooltip} from 'element-ui'
 Vue.use(ElementUI)
+Vue.use(Tooltip)
 Vue.prototype.$message=Message
+
 
 import './assets/css/global.css'
 import Vuex from 'vuex'

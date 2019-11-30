@@ -7,13 +7,13 @@
 		
   <el-header>
 <div>
- <img src="../assets/icon.png" alt="">
+ <img style='padding-left: 15px'src="../assets/icon.png" alt="">
  <span>Vue后台管理系统</span>
   </div>
   	<el-button type='info' @click='logout'>退出</el-button></el-header>
   <el-container>
 
-    <el-aside :width="isCollapse?'64px':'200px'">
+    <el-aside :width="isCollapse?'64px':'180px'">
     	<div class='toggle-button'@click='collapse()'>|||</div>
 <el-menu background-color="#333744"
       text-color="#fff"
@@ -21,7 +21,8 @@
       :unique-opened='true'
       :collapse="isCollapse"
       :collapse-transition='false'
-      :router='true'>
+      :router='true'
+      :default-active="isPath">
 
       <el-submenu :index="item.id+' '" v-for="item in menuList" :key="item.id">
         <template slot="title">
@@ -31,7 +32,7 @@
        
         
 
-          <el-menu-item :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id"> 
+          <el-menu-item @click="saveNavState('/'+subItem.path)" :index="'/'+subItem.path" v-for="subItem in item.children" :key="subItem.id"> 
           	<i class="el-icon-menu"></i>
           <span>{{subItem.authName}}</span>
       </el-menu-item>
@@ -46,7 +47,7 @@
     	<router-view>
     	
     </router-view>
-Main</el-main>
+</el-main>
   </el-container>
 </el-container>
 
@@ -69,7 +70,8 @@ iconObj:{
            '145':'el-icon-location',
 
    },
-   isCollapse:false
+   isCollapse:false,
+   isPath:this.$route.path
 
 	}
 },
@@ -78,7 +80,7 @@ created(){
 	},
 methods:{
  logout(){
-
+this.$message.success('用户退出成功')
    window.sessionStorage.clear();
    this.$router.push('/login')
 
@@ -92,6 +94,9 @@ this.menuList=res.data;
  },
  collapse(){
  	this.isCollapse=!this.isCollapse;
+ },
+ saveNavState(){
+  // console.log(this.$route.path)
  }
 
 
