@@ -9,7 +9,21 @@
 </el-breadcrumb>
 
  <el-card>
-    <el-button type='primary'>添加角色</el-button>
+  <el-row :gutter="20">
+  <el-col :span="10">
+   
+  
+
+
+</el-col>
+
+  <el-col :span="4">
+
+    <el-button type='primary'@click="addDialogRoles()">添加角色</el-button>
+  </el-col>
+
+</el-row>
+   
  <el-table :data="rolesList" stripe border>
     <el-table-column
        type="expand"
@@ -46,6 +60,15 @@
       </el-table-column>
    
     </el-table>
+   <el-pagination
+      @size-change="SizeChange"
+      @current-change="CurrentChange"
+      :current-page="currentpage"
+      :page-sizes="[ 2, 4, 8]"
+      :page-size="pagesize"
+    
+      layout=" sizes, prev, pager, next, jumper">
+    </el-pagination>
  </el-card>
  <!-- 对话框 -->
 
@@ -54,13 +77,13 @@
   :visible.sync="dialogRolesVisible"
   width="50%" @close="addRolesDialogClosed()">
   
-  <el-form :model="addRolesForm"  ref="addRolesFormRef" label-width="70px">
+  <el-form :rules="addRules" :model="addRolesForm"  ref="addRolesFormRef" label-width="70px">
 
-  <el-form-item label="角色名称" prop="rolesName">
-    <el-input v-model="addRolesForm.reoleName"></el-input>
+  <el-form-item label="角色名称" prop="roleName">
+    <el-input v-model="addRolesForm.roleName"></el-input>
   </el-form-item>
       <el-form-item label="角色描述" prop="roleDesc">
-    <el-input v-model="addRolesForm.rolesDesc"></el-input>
+    <el-input v-model="addRolesForm.roleDesc"></el-input>
   </el-form-item>
 
 </el-form>
@@ -76,8 +99,8 @@
   title="修改角色信息"
   :visible.sync="editRolesVisible"
   width="50%" @close="editRolesDialogClosed()">
-   <el-form :model="editRolesForm"  ref="editRolesFormRef" label-width="70px">
- <el-form-item label="角色名称" prop="rolesName">
+   <el-form :model="editRolesForm" :rules="editRules" ref="editRolesFormRef" label-width="70px">
+ <el-form-item label="角色名称" prop="roleName">
     <el-input v-model="editRolesForm.roleName"></el-input>
   </el-form-item>
       <el-form-item label="角色描述" prop="roleDesc">
@@ -86,7 +109,7 @@
 </el-form>
   <span slot="footer" class="dialog-footer">
     <el-button @click="editRolesVisible = false">取 消</el-button>
-    <el-button type="primary" @click="editRolesrInfo">确 定</el-button>
+    <el-button type="primary" @click="editRolesInfo">确 定</el-button>
   </span>
 
 </el-dialog>
@@ -102,17 +125,41 @@ export default {
   data() {
   
     return {
+   
+      rolesList:[],
+  
+     total:'',
+pagesize:2,
+currentpage:1,
     rolesList:[],
           dialogRolesVisible:false,
           editRolesVisible:false,
       addRolesForm:{
-        rolesName:'',
-        rolesDesc:''
+        roleName:'',
+        roleDesc:''
       },
       editRolesForm:{
-           rolesName:'',
-        rolesDesc:''
+        roleName:'',
+        roleDesc:''
       }, 
+       addRules: {
+        roleName: [
+        { required: true, trigger: 'blur', message: '请输入角色名' } ,
+        { min: 3, max: 6, message: '长度在 3 到 8 个字符', trigger: 'blur' }
+        ],
+        roleDesc: [ { required: true, trigger: 'blur', message: '请输入角色描述' },
+         { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }]
+        
+      },
+    editRules:{
+
+    roleName: [ { required: true, trigger: 'blur', message: '请输入角色名' } ,
+        { min: 3, max: 6, message: '长度在 3 到 8 个字符', trigger: 'blur' }
+        ],
+        roleDesc: [ { required: true, trigger: 'blur', message: '请输入角色描述' },
+         { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }]
+      }
+
   
     }
     },
@@ -130,14 +177,13 @@ this.getRolesList();
 async getRolesList(){
 
   const{data:res}=await this.$http.get('roles')
-      
+
 if(res.meta.status!==200){
   return this.$message.error("获取权限列表失败")
 }
 this.$message.success("获取权限列表成功")
 this.rolesList=res.data
-
- console.log(this.rolesList)
+  // console.log(this.rolesList)
  // 表格children处理
  this.rolesList = this.rolesList.map(item => {
 　　　　　　return {
@@ -147,9 +193,19 @@ this.rolesList=res.data
 　　　　　　　　childrens: item.children
 　　　　　　};
 　　　　});
+ console.log(this.rolesList.length)
+ // this.total=this.rolesList.length
   },
-  addRolesDialogUser(){
-  this.dialogVisible=!this.dialogVisible
+   SizeChange(val) {
+       this.pagesize=val;
+                       
+      },
+      CurrentChange(val) {
+              this.currentpage=val;
+
+      },
+  addDialogRoles(){
+  this.dialogRolesVisible=!this.dialogRolesVisible
 },
    addRolesDialogClosed(){
         this.$refs.addRolesFormRef.resetFields();
@@ -158,19 +214,19 @@ this.rolesList=res.data
         this.$refs.addRolesFormRef.validate(async valid=>{
   // console.log(valid);
   if(!valid) return;
-        const {data:res}= await this.$http.post('users',this.addRolesForm)
-        console.log(res)
+        const {data:res}= await this.$http.post('roles',this.addRolesForm)
+  
         if(res.meta.status!==201){
           this.$message.error('添加用户失败')
         }
         this.$message.success('添加用户成功')
-         this.dialogVisible=false
+         this.dialogRolesVisible=false
          this.getRolesList()
 
       })
       },
  async editRoles(id){
-      
+       // console.log(id)
 const {data:res}=await this.$http.get('roles/'+id)
 
    if(res.meta.status!==200){
@@ -179,7 +235,7 @@ const {data:res}=await this.$http.get('roles/'+id)
 
        this.editRolesVisible=true
        this.editRolesForm=res.data
- console.log( this.editRolesForm)
+
  },
 editRolesDialogClosed(){
         this.$refs.editRolesFormRef.resetFields();
@@ -188,21 +244,23 @@ editRolesInfo(){
     this.$refs.editRolesFormRef.validate(async valid=>{
   // console.log(valid)
   if(!valid) return;
-        const {data:res}= await this.$http.put('roles/'+ this.editRolesForm.id,
+        const {data:res}= await this.$http.put('roles/'+ this.editRolesForm.roleId,
           this.editRolesForm
         )
         if(res.meta.status!==201){
           this.$message.error('修改角色失败')
         }
         this.$message.success('修改角色成功')
-         this.editRolesDialogVisible=false
-         this.getRolesList()
+         this.editRolesVisible=false
+         this.getRolesList();
+           // console.log( this.editRolesForm)
+           // console.log( this.editRolesForm.id)
 
 })
 },
 
  async delRolesDialog(id) {
-    console.log(id)
+    // console.log(id)
       const confirmResult=await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

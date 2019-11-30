@@ -267,7 +267,7 @@ addDialogUser(){
   // console.log(valid);
   if(!valid) return;
         const {data:res}= await this.$http.post('users',this.addForm)
-        console.log(res)
+     
         if(res.meta.status!==201){
           this.$message.error('添加用户失败')
         }
