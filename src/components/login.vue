@@ -5,7 +5,7 @@
  <el-form ref='loginFormRef' :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h1 class="title" style="text-align: center;">Vue后台管理系统</h1>
       </div>
 
   <el-form-item prop="username">
@@ -81,7 +81,7 @@ export default {
    login(){
 
  this.$refs.loginFormRef.validate(async valid=>{
-  console.log(valid);
+  // console.log(valid);
    if(!valid) return;
    const {data:res}=await this.$http.post('login',this.loginForm);
    if(res.meta.status!==200)return this.$message.error('登陆失败')
@@ -107,18 +107,16 @@ export default {
 </script>
 
 <style lang="less" scoped="" type="">
-.login-container
-{
-
-background-color:gray;
-
-
+.login-container{
+  height:100%;
+  background-color: #333744;
 }
-.login-form{
 
+.login-form{
+color:white;
 width: 450px;
-height: 300px;
-background-color: white;
+height: 350px;
+background-color: #333744;
 border-radius: 5px;
 position: absolute;
 top: 50%;

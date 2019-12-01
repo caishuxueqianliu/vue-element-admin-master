@@ -11,6 +11,11 @@ Vue.use(Tooltip)
 Vue.prototype.$message=Message
 
 
+// import TreeTable from 'vue-table-with-tree-grid'
+// Vue.use(TreeTable)
+import TreeTable from 'vue-table-with-tree-grid'
+Vue.component('tree-table', TreeTable)
+
 import './assets/css/global.css'
 import Vuex from 'vuex'
 Vue.use(Vuex)
@@ -20,6 +25,7 @@ Vue.use(Vuex)
 import axios from 'axios'
 
 axios.defaults.baseURL='http://127.0.0.1:8888/api/private/v1/'
+// axios.defaults.baseURL='https://renoblog.xyz/api/private/v1/'
 //请求拦截器
 axios.interceptors.request.use(config=>{
 

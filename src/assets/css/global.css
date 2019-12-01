@@ -16,6 +16,10 @@ padding: 0;
 	margin-top: 15px;
 	font-size: 12px;
 }
+.zk-table{
+	margin-top: 15px;
+	font-size: 12px;
+}
 .el-pagination{
 	margin-top: 15px;
 }
@@ -24,3 +28,4 @@ padding: 0;
 	text-align:center; 
 	color:black;
 }
+
