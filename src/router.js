@@ -1,5 +1,6 @@
 import VueRouter from 'vue-router'
-
+import Router from 'vue-router'
+//const Login = () => import(/* webpackChunkName: "login_home_welcome" */ './components/Login.vue')
 
 import login from './components/login.vue'
 import Home from './components/Home.vue'
@@ -10,15 +11,10 @@ import Rights from './components/Rights.vue'
 import Cate from './components/goods/Cate.vue'
 import Goods from './components/goods/Goods.vue'
 import Params from './components/goods/Params.vue'
-// var router = new VueRouter({
-//   routes: [
-//      {path:'/',redirect:'/login'},
-//      { path: '/login', component: login },
-//       { path: '/home', component: We}
-          
-//   ]
+import Add from './components/goods/Add.vue'
+import Order from './components/Order.vue'
+import Reports from './components/Reports.vue'
 
-// })
 const router = new VueRouter({
   routes: [
      {path:'/',redirect:'/login'},
@@ -32,7 +28,10 @@ const router = new VueRouter({
                 {path:'/rights',component:Rights},
                  {path:'/goods',component:Goods},
                   {path:'/categories',component:Cate},
-                   {path:'/params',component:Params}]
+                   {path:'/params',component:Params},
+                   {path:'/goods/add',component:Add},
+                   {path:'/orders',component:Order},
+                   {path:'/reports',component:Reports}]
      }
           
   ]
@@ -56,10 +55,11 @@ next()
 
 
 })
-import Router from 'vue-router'
+
  
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
+  return originalPush.call(this, location).catch(err => {return err})
 }
-export default router
+export default router  
+        

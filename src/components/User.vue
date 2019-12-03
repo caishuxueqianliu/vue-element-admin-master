@@ -1,7 +1,7 @@
 <template>
 <div>
 <el-breadcrumb separator="/">
-  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
   <el-breadcrumb-item>用户管理</el-breadcrumb-item>
   <el-breadcrumb-item>用户列表</el-breadcrumb-item>
 </el-breadcrumb>
@@ -65,7 +65,7 @@
  <el-button type="primary" size='mini' icon="el-icon-edit" @click=editUser(scope.row.id)></el-button>
  <el-button type="danger"size='mini' icon="el-icon-delete"  @click=delDialog(scope.row.id) ></el-button>
 
- <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false" >
+ <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false" >
   <el-button type="warning"size='mini' icon="el-icon-setting" @click="showUserDialog(scope.row)"></el-button>
     </el-tooltip>
  
@@ -74,7 +74,7 @@
       </el-table-column>
 
     </el-table>
- <el-pagination
+ <el-pagination     background
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       :current-page="queryInfo.pagenum"

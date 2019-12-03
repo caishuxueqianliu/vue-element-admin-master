@@ -13,7 +13,7 @@
   	<el-button type='info' @click='logout'>退出</el-button></el-header>
   <el-container>
 
-    <el-aside :width="isCollapse?'64px':'180px'">
+    <el-aside :width="isCollapse?'64px':'200px'">
     	<div class='toggle-button'@click='collapse()'>|||</div>
 <el-menu background-color="#333744"
       text-color="#fff"
@@ -115,6 +115,7 @@ this.menuList=res.data;
 <style lang="less" scoped type="">
 .el-container{
 	height: 100%;
+  font-size: 30px;
 }
 .el-header{
 	background-color: #333744;
@@ -135,13 +136,16 @@ this.menuList=res.data;
 }
 .el-aside{
 	background-color:#333744;
+ span{
+    font-size: 18px;
+ }
 	.el-menu{
 			border-right: none;
 		
 	}
 }
 .el-main{
-	background-color: white;
+	background-color: #eaedf1;
 }
 .iconfont{
 	margin-right: 10px;
