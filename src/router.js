@@ -2,18 +2,18 @@ import VueRouter from 'vue-router'
 import Router from 'vue-router'
 //const Login = () => import(/* webpackChunkName: "login_home_welcome" */ './components/Login.vue')
 
-import login from './components/login.vue'
-import Home from './components/Home.vue'
-import Welcome from './components/Welcome.vue'
-import User from './components/User.vue'
-import Roles from './components/Roles.vue'
-import Rights from './components/Rights.vue'
-import Cate from './components/goods/Cate.vue'
-import Goods from './components/goods/Goods.vue'
-import Params from './components/goods/Params.vue'
-import Add from './components/goods/Add.vue'
-import Order from './components/Order.vue'
-import Reports from './components/Reports.vue'
+ const login=()=>import ('./pages/login.vue') 
+const Home =()=>import( './pages/Home.vue')
+const Welcome =()=>import( './pages/Welcome.vue')
+const User =()=>import( './pages/User.vue')
+const Roles =()=>import( './pages/Roles.vue')
+const Rights =()=>import( './pages/Rights.vue')
+const Cate =()=>import( './pages/goods/Cate.vue')
+const Goods =()=>import( './pages/goods/Goods.vue')
+const Params =()=>import( './pages/goods/Params.vue')
+const Add =()=>import( './pages/goods/Add.vue')
+const Order =()=>import( './pages/Order.vue')
+const Reports =()=>import( './pages/Reports.vue')
 
 const router = new VueRouter({
   routes: [

@@ -169,7 +169,7 @@ this.getGoodsList()
     //商品列表
 
  async getGoodsList(){
- const {data:res}=await this.$http.get('goods',{params:this.queryInfo}) 
+ const {data:res}=await this.$http.get('/goods',{params:this.queryInfo}) 
 if(res.meta.status!==200)
   return this.$message.error('获取商品列表失败')
 
@@ -222,7 +222,7 @@ this.$router.push('/goods/add')
 
 //点击编辑弹出对话框
 async editGoods(id){
-const {data:res}=await this.$http.get('goods/'+id)
+const {data:res}=await this.$http.get('/goods/'+id)
 
    if(res.meta.status!==200){
     return    this.$message.error('查询商品失败')
@@ -244,7 +244,7 @@ editDialogClosed(){
     this.editForm.add_time=Date.parse(new Date())/1000
           console.log(this.editForm.add_time)
         const {data:res}= await 
-        this.$http.put('goods/'+ this.editForm.goods_id,
+        this.$http.put('/goods/'+ this.editForm.goods_id,
           this.editForm
         )
         if(res.meta.status!==201){

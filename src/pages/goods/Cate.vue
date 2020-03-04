@@ -196,7 +196,7 @@ this.getCateList();
     //获取商品分类列表
   async getCateList(){
        
-       const {data:res}=await this.$http.get('categories',{
+       const {data:res}=await this.$http.get('/categories',{
         params:this.querInfo
        })
         if(res.meta.status!==200){
@@ -229,7 +229,7 @@ this.getCateList();
 //获取父级分类的列表
 async getParentCateList(){
   
-    const {data:res}=await this.$http.get('categories',{
+    const {data:res}=await this.$http.get('/categories',{
         params:{type:2}
        })
         if(res.meta.status!==200){
@@ -281,7 +281,7 @@ addCateOver(){
       this.$refs.addCateFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post(
-          'categories',
+          '/categories',
           this.addCateForm
         )
 
@@ -312,7 +312,7 @@ addCateOver(){
         if(result!=='confirm'){
           return   this.$message.info('已取消删除')
         }
-        const {data:res}=await this.$http.delete('categories/'+id)
+        const {data:res}=await this.$http.delete('/categories/'+id)
         if(res.meta.status!==200){
           return this.$message.error('删除分类失败')
         }
@@ -322,7 +322,7 @@ addCateOver(){
     //编辑分类
  async editCate(id){
         // console.log(id)
-const {data:res}=await this.$http.get('categories/'+id)
+const {data:res}=await this.$http.get('/categories/'+id)
 
    if(res.meta.status!==200){
     return    this.$message.error('查询分类名称失败')
@@ -339,7 +339,7 @@ editRolesInfo(){
     this.$refs.editRolesFormRef.validate(async valid=>{
   // console.log(valid)
   if(!valid) return;
-        const {data:res}= await this.$http.put('categories/'+ this.editRolesForm.cat_id,
+        const {data:res}= await this.$http.put('/categories/'+ this.editRolesForm.cat_id,
           this.editRolesForm
         )
         if(res.meta.status!==201){

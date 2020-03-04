@@ -1,15 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import ElementUI from 'element-ui'
+ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-// import TreeTable from 'vue-table-with-tree-grid'
-//import './plugins/element.js'
-// import Timeline from './plugins/timeline/index.js'
-// import TimelineItem from './plugins/timeline-item/index.js'
-// import './plugins/timeline/timeline.css';
-// import './plugins/timeline-item/timeline-item.css';
-// Vue.use(Timeline)
-// Vue.use(TimelineItem)
 import{Message,Steps} from 'element-ui'
 import{Tooltip} from 'element-ui'
 Vue.use(ElementUI)
@@ -18,9 +10,6 @@ Vue.use(Steps)
 
 Vue.prototype.$message=Message
 
-
-// import TreeTable from 'vue-table-with-tree-grid'
-// Vue.use(TreeTable)
 import TreeTable from 'vue-table-with-tree-grid'
 Vue.component('tree-table', TreeTable)
 
@@ -53,9 +42,10 @@ Vue.use(VueQuillEditor)
 
 
 import axios from 'axios'
+axios.defaults.baseURL='http://server.sineava.top/api/private/v1'
 
 //axios.defaults.baseURL='http://127.0.0.1:8888/api/private/v1/'
- axios.defaults.baseURL='https://renoblog.xyz/api/private/v1/'
+// axios.defaults.baseURL='https://renoblog.xyz/api/private/v1/'
 
 // 导入 NProgress 包对应的JS和CSS
 import NProgress from 'nprogress'

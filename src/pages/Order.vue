@@ -251,7 +251,7 @@ this.getOrdersList()
     //列表
 
  async getOrdersList(){
- const {data:res}=await this.$http.get('orders',{params:this.queryInfo}) 
+ const {data:res}=await this.$http.get('/orders',{params:this.queryInfo}) 
 if(res.meta.status!==200)
   return this.$message.error('获取列表失败')
 
@@ -278,7 +278,7 @@ this.getOrdersList()
 
 //点击编辑弹出对话框
 async editGoods(id){
-const {data:res}=await this.$http.get('orders/'+id)
+const {data:res}=await this.$http.get('/orders/'+id)
 
    if(res.meta.status!==200){
     return    this.$message.error('查询失败')
@@ -300,7 +300,7 @@ editDialogClosed(){
    
       
         const {data:res}= await 
-        this.$http.put('orders/'+ this.editForm.order_id,
+        this.$http.put('/orders/'+ this.editForm.order_id,
           this.editForm
         )
         if(res.meta.status!==201){
@@ -336,7 +336,7 @@ editDialogClosed(){
    
       this.form.consignee_addr='this.form.address1'+'this.form.address2'
         const {data:res}= await 
-        this.$http.put('orders/'+ this.form.order_id,
+        this.$http.put('/orders/'+ this.form.order_id,
           this.form.consignee_addr
         )
         if(res.meta.status!==201){

@@ -254,7 +254,7 @@ this.getUserList();
   
 async getUserList(){
  
- const {data:res}=await this.$http.get('users',{params:this.queryInfo})
+ const {data:res}=await this.$http.get('/users',{params:this.queryInfo})
  if(res.meta.status!==200){
   return this.$message.error('获取用户列表失败')
  }
@@ -275,7 +275,7 @@ this.getUserList();
 },
  async userStateChanged(userInfo){
 
-const{data:res}=await this.$http.put(`users/${userInfo.id}/state/${userInfo.mg_state}`)
+const{data:res}=await this.$http.put(`/users/${userInfo.id}/state/${userInfo.mg_state}`)
 if(res.meta.status!==200){
   userInfo.mg_state=!userInfo.mg_state
   return this.$message.error('更新用户信息失败！')
@@ -293,7 +293,7 @@ addDialogUser(){
         this.$refs.addFormRef.validate(async valid=>{
   // console.log(valid);
   if(!valid) return;
-        const {data:res}= await this.$http.post('users',this.addForm)
+        const {data:res}= await this.$http.post('/users',this.addForm)
      
         if(res.meta.status!==201){
           this.$message.error('添加用户失败')
@@ -306,7 +306,7 @@ addDialogUser(){
       },
 async editUser(id){
        
-const {data:res}=await this.$http.get('users/'+id)
+const {data:res}=await this.$http.get('/users/'+id)
 
    if(res.meta.status!==200){
     return    this.$message.error('查询用户失败')
@@ -323,7 +323,7 @@ editUserInfo(){
     this.$refs.editFormRef.validate(async valid=>{
   // console.log(valid)
   if(!valid) return;
-        const {data:res}= await this.$http.put('users/'+ this.editForm.id,
+        const {data:res}= await this.$http.put('/users/'+ this.editForm.id,
           this.editForm
         )
         if(res.meta.status!==201){
@@ -369,7 +369,7 @@ editUserInfo(){
         if(confirmResult!=='confirm'){
           return   this.$message.info('已取消删除')
         }
-        const {data:res}=await this.$http.delete('users/'+id)
+        const {data:res}=await this.$http.delete('/users/'+id)
         if(res.meta.status!==200){
           return this.$message.error('删除用户失败')
         }
@@ -378,7 +378,7 @@ editUserInfo(){
       },
  async showUserDialog(userInfo){
         this.userInfo=userInfo
-      const {data:res}=await this.$http.get('roles')
+      const {data:res}=await this.$http.get('/roles')
  if(res.meta.status!==200){
           return this.$message.error('获取角色失败')
         }
@@ -395,7 +395,7 @@ if(!this.selectedRoleId){
 // console.log(this.userInfo.id)
 // console.log(this.selectedRoleId)
  const {data:res}=await
-  this.$http.put(`users/${this.userInfo.id}/role`,{
+  this.$http.put(`/users/${this.userInfo.id}/role`,{
   rid:this.selectedRoleId
  })
  if(res.meta.status!==200){

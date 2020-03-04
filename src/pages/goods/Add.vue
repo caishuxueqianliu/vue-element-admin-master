@@ -137,8 +137,8 @@ export default {
       // 静态属性列表数据
       onlyTableData: [],
       // 上传图片的URL地址
-       //uploadURL: 'http://127.0.0.1:8888/api/private/v1/upload',
-     uploadURL: 'https:/renoblog.xyz/api/private/v1/private/v1/upload',
+       //uploadURL: 'http://127.0.0.1:8888/private/v1/upload',
+     uploadURL: 'http://server.sineava.top/private/v1/upload',
       // 图片上传组件的headers请求头对象
       headerObj: {
         Authorization: window.sessionStorage.getItem('token')
@@ -167,7 +167,7 @@ export default {
   methods: {
     // 获取所有商品分类数据
     async getCateList() {
-      const { data: res } = await this.$http.get('categories')
+      const { data: res } = await this.$http.get('/categories')
 
       if (res.meta.status !== 200) {
         return this.$message.error('获取商品分类数据失败！')
@@ -197,7 +197,7 @@ export default {
       // 证明访问的是动态参数面板
       if (this.activeIndex === '1') {
         const { data: res } = await this.$http.get(
-          `categories/${this.cateId}/attributes`,
+          `/categories/${this.cateId}/attributes`,
           {
             params: { sel: 'many' }
           }
@@ -217,7 +217,7 @@ export default {
 
       else if (this.activeIndex === '2') {
         const { data: res } = await this.$http.get(
-          `categories/${this.cateId}/attributes`,
+          `/categories/${this.cateId}/attributes`,
           {
             params: { sel: 'only' }
           }
@@ -262,6 +262,7 @@ export default {
     },
  // 添加商品
     add() {
+    
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) {
           return this.$message.error('请填写必要的表单项！')
@@ -291,7 +292,7 @@ export default {
 
         // 发起请求添加商品
         // 商品的名称，必须是唯一的
-        const { data: res } = await this.$http.post('goods', form)
+        const { data: res } = await this.$http.post('/goods', form)
 
         if (res.meta.status !== 201) {
           return this.$message.error('添加商品失败！')

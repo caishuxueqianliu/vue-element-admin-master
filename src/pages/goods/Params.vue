@@ -225,7 +225,7 @@ this.getParentCateList()
 //获取父级分类的列表
 async getParentCateList(){
   
-    const {data:res}=await this.$http.get('categories',{
+    const {data:res}=await this.$http.get('/categories',{
         params:{type:3}
        })
         if(res.meta.status!==200){
@@ -255,7 +255,7 @@ async getDate(){
       return
         }
   const {data:res}=await 
-   this.$http.get(`categories/${this.cateId}/attributes`,{
+   this.$http.get(`/categories/${this.cateId}/attributes`,{
         params:{sel:this.activeName}
        })
         if(res.meta.status!==200){
@@ -300,7 +300,7 @@ addSave(){
          
       
         const { data: res } = await this.$http.post(
-          `categories/${this.cateId}/attributes`,
+          `/categories/${this.cateId}/attributes`,
           {attr_name:this.addForm.attr_name,
             attr_sel:this.activeName}
         )
@@ -321,7 +321,7 @@ addSave(){
       // 查询当前参数的信息
       // console.log(attr_id)
       const { data: res } = await this.$http.get(
-        `categories/${this.cateId}/attributes/${attr_id}`,
+        `/categories/${this.cateId}/attributes/${attr_id}`,
         {
           params: { attr_sel: this.activeName }
         }
@@ -343,7 +343,7 @@ addSave(){
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.put(
-          `categories/${this.cateId}/attributes/${this.editForm.attr_id}`,
+          `/categories/${this.cateId}/attributes/${this.editForm.attr_id}`,
           { attr_name: this.editForm.attr_name, attr_sel: this.activeName }
         )
 
@@ -376,7 +376,7 @@ addSave(){
           return   this.$message.info('已取消删除')
         }
           const { data: res } = await this.$http.delete(
-        `categories/${this.cateId}/attributes/${attr_id}`
+        `/categories/${this.cateId}/attributes/${attr_id}`
       )
         if(res.meta.status!==200){
           return this.$message.error('删除分类失败')
@@ -402,7 +402,7 @@ addSave(){
     async saveAttrVals(row) {
       // 需要发起请求，保存这次操作
       const { data: res } = await this.$http.put(
-        `categories/${this.cateId}/attributes/${row.attr_id}`,
+        `/categories/${this.cateId}/attributes/${row.attr_id}`,
         {
           attr_name: row.attr_name,
           attr_sel: row.attr_sel,

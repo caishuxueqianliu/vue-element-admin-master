@@ -219,7 +219,7 @@ this.getRolesList();
   methods: {
 async getRolesList(){
 
-  const{data:res}=await this.$http.get('roles')
+  const{data:res}=await this.$http.get('/roles')
 
 if(res.meta.status!==200){
   return this.$message.error("获取权限列表失败")
@@ -257,7 +257,7 @@ this.rolesList=res.data
         this.$refs.addRolesFormRef.validate(async valid=>{
   // console.log(valid);
   if(!valid) return;
-        const {data:res}= await this.$http.post('roles',this.addRolesForm)
+        const {data:res}= await this.$http.post('/roles',this.addRolesForm)
   
         if(res.meta.status!==201){
           this.$message.error('添加用户失败')
@@ -270,7 +270,7 @@ this.rolesList=res.data
       },
  async editRoles(id){
        // console.log(id)
-const {data:res}=await this.$http.get('roles/'+id)
+const {data:res}=await this.$http.get('/roles/'+id)
 
    if(res.meta.status!==200){
     return    this.$message.error('查询角色失败')
@@ -287,7 +287,7 @@ editRolesInfo(){
     this.$refs.editRolesFormRef.validate(async valid=>{
   // console.log(valid)
   if(!valid) return;
-        const {data:res}= await this.$http.put('roles/'+ this.editRolesForm.roleId,
+        const {data:res}= await this.$http.put('/roles/'+ this.editRolesForm.roleId,
           this.editRolesForm
         )
         if(res.meta.status!==201){
@@ -317,7 +317,7 @@ editRolesInfo(){
         if(confirmResult!=='confirm'){
           return   this.$message.info('已取消删除')
         }
-        const {data:res}=await this.$http.delete('roles/'+id)
+        const {data:res}=await this.$http.delete('/roles/'+id)
         if(res.meta.status!==200){
           return this.$message.error('删除用户失败')
         }
@@ -339,7 +339,7 @@ editRolesInfo(){
         if(confirmTagResult!=='confirm'){
           return   this.$message.info('已取消删除')
         }
-        const {data:res}=await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
+        const {data:res}=await this.$http.delete(`/roles/${role.id}/rights/${rightId}`)
         if(res.meta.status!==200){
           return this.$message.error('删除权限失败')
         }
@@ -352,7 +352,7 @@ async showSetDialog(role){
 
 this.roleId=role.id
 
-  const{data:res}=await this.$http.get('rights/tree')
+  const{data:res}=await this.$http.get('/rights/tree')
        // console.log(res)
 if(res.meta.status!==200){
   return this.$message.error("获取权限列表失败")
@@ -383,7 +383,7 @@ setRightDialogClosed(){
 const idStr=keys.join(',')
 // console.log(idStr)
  const {data:res}=
- await this.$http.post(`roles/${this.roleId}/rights`,{rids:idStr})
+ await this.$http.post(`/roles/${this.roleId}/rights`,{rids:idStr})
  if(res.meta.status!==200){
   return this.$message.error("分配角色权限失败")
 }
